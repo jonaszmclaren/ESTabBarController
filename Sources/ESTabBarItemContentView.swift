@@ -40,6 +40,9 @@ open class ESTabBarItemContentView: UIView {
     /// 设置contentView的偏移
     open var insets = UIEdgeInsets.zero
     
+    /// Title insets
+    open var titleLabelYPositionOffset: CGFloat = 0.0
+    
     /// 是否被选中
     open var selected = false
     
@@ -235,7 +238,7 @@ open class ESTabBarItemContentView: UIView {
                 titleLabel.sizeToFit()
                 if #available(iOS 11.0, *), isWide {
                     titleLabel.frame = CGRect.init(x: (w - titleLabel.bounds.size.width) / 2.0 + (UIScreen.main.scale == 3.0 ? 14.25 : 12.25),
-                                                   y: (h - titleLabel.bounds.size.height) / 2.0,
+                                                   y: (h - titleLabel.bounds.size.height) / 2.0 + titleLabelYPositionOffset,
                                                    width: titleLabel.bounds.size.width,
                                                    height: titleLabel.bounds.size.height)
                     imageView.frame = CGRect.init(x: titleLabel.frame.origin.x - s - (UIScreen.main.scale == 3.0 ? 6.0 : 5.0),
@@ -244,7 +247,7 @@ open class ESTabBarItemContentView: UIView {
                                                   height: s)
                 } else {
                     titleLabel.frame = CGRect.init(x: (w - titleLabel.bounds.size.width) / 2.0,
-                                                   y: h - titleLabel.bounds.size.height - 1.0,
+                                                   y: h - titleLabel.bounds.size.height - 1.0 + titleLabelYPositionOffset,
                                                    width: titleLabel.bounds.size.width,
                                                    height: titleLabel.bounds.size.height)
                     imageView.frame = CGRect.init(x: (w - s) / 2.0,
@@ -261,7 +264,7 @@ open class ESTabBarItemContentView: UIView {
                 titleLabel.font = UIFont.systemFont(ofSize: f)
                 titleLabel.sizeToFit()
                 titleLabel.frame = CGRect.init(x: (w - titleLabel.bounds.size.width) / 2.0,
-                                               y: (h - titleLabel.bounds.size.height) / 2.0,
+                                               y: (h - titleLabel.bounds.size.height) / 2.0 + titleLabelYPositionOffset,
                                                width: titleLabel.bounds.size.width,
                                                height: titleLabel.bounds.size.height)
             }
@@ -281,7 +284,7 @@ open class ESTabBarItemContentView: UIView {
                 titleLabel.sizeToFit()
                 imageView.sizeToFit()
                 titleLabel.frame = CGRect.init(x: (w - titleLabel.bounds.size.width) / 2.0,
-                                               y: h - titleLabel.bounds.size.height - 1.0,
+                                               y: h - titleLabel.bounds.size.height - 1.0 + titleLabelYPositionOffset,
                                                width: titleLabel.bounds.size.width,
                                                height: titleLabel.bounds.size.height)
                 imageView.frame = CGRect.init(x: (w - imageView.bounds.size.width) / 2.0,
@@ -293,7 +296,7 @@ open class ESTabBarItemContentView: UIView {
                 imageView.center = CGPoint.init(x: w / 2.0, y: h / 2.0)
             } else if !titleLabel.isHidden {
                 titleLabel.sizeToFit()
-                titleLabel.center = CGPoint.init(x: w / 2.0, y: h / 2.0)
+                titleLabel.center = CGPoint.init(x: w / 2.0, y: h / 2.0  + titleLabelYPositionOffset)
             }
             
             if let _ = badgeView.superview {
